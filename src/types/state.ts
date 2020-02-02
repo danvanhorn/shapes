@@ -1,5 +1,5 @@
-import { Shapes } from './shapes';
+import { ShapesEnum } from "./shapes";
 
 export type State = {
-  activeShape: Shapes;
-}
+  activeShape: ShapesEnum;
+};

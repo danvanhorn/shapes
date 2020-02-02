@@ -1,13 +1,16 @@
-import { combineReducers } from 'redux';
-import { actionConstants, InitializeActionTypes } from '../actions/actionTypes';
-import { State } from '../../types/state';
-import { Shapes } from '../../types/shapes';
+import { combineReducers } from "redux";
+import { actionConstants, InitializeActionTypes } from "../actions/actionTypes";
+import { State } from "../../types/state";
+import { ShapesEnum } from "../../types/shapes";
 
 const initialState: State = {
-  activeShape: Shapes.square,
+  activeShape: ShapesEnum.square
 };
 
-const activeShape = (state: Shapes = initialState.activeShape, action: InitializeActionTypes) => {
+const activeShape = (
+  state: ShapesEnum = initialState.activeShape,
+  action: InitializeActionTypes
+): ShapesEnum => {
   switch (action.type) {
     case actionConstants.INITIALIZE:
       return initialState.activeShape;

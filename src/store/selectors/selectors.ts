@@ -1,4 +1,5 @@
-import { createSelector } from 'reselect';
-import { State } from '../../types/state';
+import { createSelector } from "reselect";
+import { State } from "../../types/state";
+import { ShapesEnum } from "../../types/shapes";
 
-export const getActiveShape = createSelector([], (state: State) => state.activeShape);
+export const getActiveShape = (state: State): ShapesEnum => state.activeShape;
