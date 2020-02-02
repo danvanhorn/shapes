@@ -6,10 +6,10 @@ import {
 import { ShapesEnum } from "../../types/shapes";
 
 export const initialize = (): InitializeAction => ({
-  type: typeof actionConstants.INITIALIZE
+  type: actionConstants.INITIALIZE
 });
 
 export const setActiveShape = (data: ShapesEnum): SetActiveShapeAction => ({
-  type: typeof actionConstants.SET_ACTIVE_SHAPE,
+  type: actionConstants.SET_ACTIVE_SHAPE,
   data
 });

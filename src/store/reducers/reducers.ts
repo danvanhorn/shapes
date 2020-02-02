@@ -21,4 +21,4 @@ const activeShape = (
   }
 };
 
-export const reducer = combineReducers({ activeShape });
+export default combineReducers({ activeShape });

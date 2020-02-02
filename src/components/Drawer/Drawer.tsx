@@ -87,7 +87,7 @@ const Drawer: React.FC = () => {
 
   useEffect(() => {
     initialize();
-  }, [initialize]);
+  }, []);
 
   const toggleOpen = (): void => setOpen(!open);
   return (
