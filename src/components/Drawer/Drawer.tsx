@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 import clsx from "clsx";
 import { Menu as MenuIcon, MenuOpen as MenuOpenIcon } from "@material-ui/icons";
 import IconButton from "@material-ui/core/IconButton";
@@ -12,8 +13,11 @@ import {
   Drawer as MaterialDrawer
 } from "@material-ui/core";
 import { ConnectedMenu } from "../Menu/ConnectedMenu";
-import { InitializeAction } from "../../store/actions/actionTypes";
-import { initialize } from "../../store/actions/actions";
+import {
+  InitializeAction,
+  CloseDrawerAction,
+  OpenDrawerAction
+} from "../../store/actions/actionTypes";
 
 const drawerWidth = 240;
 
@@ -75,36 +79,45 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export type DrawerFunctionProps = {
-  initialize(): InitializeAction;
+export type DrawerValueProps = {
+  isDrawerOpen: boolean;
 };
 
-export type DrawerProps = DrawerFunctionProps;
+export type DrawerFunctionProps = {
+  initialize(): InitializeAction;
+  openDrawer(): OpenDrawerAction;
+  closeDrawer(): CloseDrawerAction;
+};
 
-const Drawer: React.FC = () => {
+export type DrawerProps = DrawerFunctionProps & DrawerValueProps;
+
+const Drawer: React.FC<DrawerProps> = ({
+  initialize,
+  isDrawerOpen,
+  openDrawer,
+  closeDrawer
+}) => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     initialize();
-  }, []);
+  }, [initialize]);
 
-  const toggleOpen = (): void => setOpen(!open);
   return (
     <div className={classes.root}>
       <AppBar
         className={clsx(classes.appBar, {
-          [classes.appBarShift]: open
+          [classes.appBarShift]: isDrawerOpen
         })}
         position="fixed"
       >
         <ToolBar>
           <IconButton
-            className={clsx(classes.menuButton, open && classes.hide)}
+            className={clsx(classes.menuButton, isDrawerOpen && classes.hide)}
             color="inherit"
             aria-label="open-drawer"
             edge="start"
-            onClick={toggleOpen}
+            onClick={openDrawer}
           >
             <MenuIcon />
           </IconButton>
@@ -115,13 +128,13 @@ const Drawer: React.FC = () => {
         className={classes.drawer}
         variant="persistent"
         anchor="left"
-        open={open}
+        open={isDrawerOpen}
         classes={{
           paper: classes.drawerPaper
         }}
       >
         <div className={classes.drawerHeader}>
-          <IconButton onClick={toggleOpen}>
+          <IconButton onClick={closeDrawer}>
             <MenuOpenIcon />
           </IconButton>
         </div>
@@ -129,6 +142,13 @@ const Drawer: React.FC = () => {
       </MaterialDrawer>
     </div>
   );
+};
+
+Drawer.propTypes = {
+  isDrawerOpen: PropTypes.bool.isRequired,
+  initialize: PropTypes.func.isRequired,
+  openDrawer: PropTypes.func.isRequired,
+  closeDrawer: PropTypes.func.isRequired
 };
 
 export default React.memo(Drawer);

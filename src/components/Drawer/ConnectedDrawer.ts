@@ -1,11 +1,26 @@
 import { connect } from "react-redux";
-import { Drawer } from "@material-ui/core";
-import { initialize } from "../../store/actions/actions";
-import { DrawerFunctionProps } from "./Drawer";
-import { InitializeAction } from "../../store/actions/actionTypes";
+import {
+  initialize,
+  openDrawer,
+  closeDrawer
+} from "../../store/actions/actions";
+import Drawer, { DrawerFunctionProps, DrawerValueProps } from "./Drawer";
+import {
+  InitializeAction,
+  CloseDrawerAction,
+  OpenDrawerAction
+} from "../../store/actions/actionTypes";
+import { State } from "../../types/state";
+import { getIsDrawerOpen } from "../../store/selectors/selectors";
 
-const mapDispatchToProps = (dispatch: any): DrawerFunctionProps => ({
-  initialize: (): InitializeAction => dispatch(initialize())
+const mapStateToProps = (state: State): DrawerValueProps => ({
+  isDrawerOpen: getIsDrawerOpen(state)
 });
 
-export default connect(mapDispatchToProps)(Drawer);
+const mapDispatchToProps = (dispatch: any): DrawerFunctionProps => ({
+  initialize: (): InitializeAction => dispatch(initialize()),
+  openDrawer: (): OpenDrawerAction => dispatch(openDrawer()),
+  closeDrawer: (): CloseDrawerAction => dispatch(closeDrawer())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Drawer);

@@ -1,7 +1,7 @@
 module.exports = {
-  extends: ['airbnb', 'plugin:@typescript-eslint/recommended','plugin:prettier/recommended'],
+  extends: ['airbnb', 'plugin:@typescript-eslint/recommended','plugin:prettier/recommended', "plugin:jest/recommended"],
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'prettier'],
+  plugins: ['@typescript-eslint', 'prettier', 'jest'],
   settings: {
     'import/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
@@ -10,9 +10,13 @@ module.exports = {
       typescript: {},
     },
   },
+  env: {
+    "jest/globals": true
+  },
   rules: {
     'import/extensions': [0, "never"],
     'import/prefer-default-export': [0],
+    'react/jsx-props-no-spreading': [0],
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     'import/no-extraneous-dependencies': [2, { devDependencies: ['**/test.tsx', '**/test.ts'] }],
     '@typescript-eslint/indent': [2, 2],

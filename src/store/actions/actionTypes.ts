@@ -2,25 +2,21 @@ import {
   ActionType,
   ActionTypeWithPayload
 } from "../../types/actionTypeUtilities";
-import { ShapesEnum } from "../../types/shapes";
-
-const getActionType = (type: string): string => `shapesApp - ${type}`;
-
-// Action constants
-const INITIALIZE = getActionType("INITIALIZE");
-const SET_ACTIVE_SHAPE = getActionType("SET_ACTIVE_SHAPE");
-
-export const actionConstants = {
+import {
   INITIALIZE,
-  SET_ACTIVE_SHAPE
-};
+  SET_ACTIVE_SHAPE,
+  OPEN_DRAWER,
+  CLOSE_DRAWER
+} from "./actionConstants";
+import { ShapesEnum } from "../../types/shapes";
 
 // Single Action Types
 export type InitializeAction = ActionType<typeof INITIALIZE>;
-export type SetActiveShapeAction = ActionTypeWithPayload<
-  typeof SET_ACTIVE_SHAPE,
-  ShapesEnum
->;
+// eslint-disable-next-line prettier/prettier
+export type SetActiveShapeAction = ActionTypeWithPayload<typeof SET_ACTIVE_SHAPE,ShapesEnum>;
+export type OpenDrawerAction = ActionType<typeof OPEN_DRAWER>;
+export type CloseDrawerAction = ActionType<typeof CLOSE_DRAWER>;
 
 // Combined Action Types
 export type InitializeActionTypes = InitializeAction & SetActiveShapeAction;
+export type DrawerActionTypes = OpenDrawerAction & CloseDrawerAction;

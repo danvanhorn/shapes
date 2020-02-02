@@ -1,9 +1,16 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { shallow, ShallowWrapper } from "enzyme";
 import App from "./App";
+import Drawer from "./components/Drawer/ConnectedDrawer";
 
-test("renders learn react link", () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe("src/App.tsx", () => {
+  let wrapper: ShallowWrapper;
+
+  beforeEach(() => {
+    wrapper = shallow(<App />);
+  });
+
+  it("renders the drawer", () => {
+    expect(wrapper.find(Drawer).exists()).toBeTruthy();
+  });
 });
