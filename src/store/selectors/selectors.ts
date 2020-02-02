@@ -1,4 +1,3 @@
-import { createSelector } from "reselect";
 import { State } from "../../types/state";
 import { ShapesEnum } from "../../types/shapes";
 
